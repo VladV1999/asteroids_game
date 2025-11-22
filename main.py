@@ -31,8 +31,14 @@ def main():
                 return
         screen.fill("black")
         updatable.update(dt)
-        for object in asteroids:
-            if object.collides_with(p):
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    shot.kill()
+                    asteroid.split()
+                    # break
+            if asteroid.collides_with(p):
                 log_event("player_hit")
                 print("Game over!")
                 print(f"{p.position} is where it all goes down")
